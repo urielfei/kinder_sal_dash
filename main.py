@@ -165,7 +165,7 @@ def update_columns(data):
     [Input('week-dropdown', 'value')])
 def update_graph(selected_week):
     filtered_data = df_cum[df_cum['week'] <= selected_week]
-    filtered_data = filtered_data.rename({'cum_points':'Points','team_name':'Team'})
+    filtered_data = filtered_data.rename({'cum_points':'Points','team_name':'Team'},axis='columns')
     fig = px.line(filtered_data, x='week', y='Points', color='Team', title='Cumulative Points by Week')
     return fig
 

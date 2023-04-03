@@ -107,7 +107,7 @@ app.layout = html.Div([
 
     html.Div(children=[
         dcc.Graph(id='my-graph')
-    ], style={'width': '60%'}),
+    ], style={'width': '80%'}),
 
     html.Div(children=[
         dash_table.DataTable(

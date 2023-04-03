@@ -8,6 +8,10 @@ df = pd.read_csv('df_ranks.csv')
 df_cum = pd.read_csv('df_cum_standings.csv')
 df_matrices = pd.read_csv('df_matrices.csv')
 
+# df = pd.read_csv('https://raw.githubusercontent.com/urielfei/kinder_sal_dash/main/df_ranks.csv')
+# df_cum = pd.read_csv('https://raw.githubusercontent.com/urielfei/kinder_sal_dash/main/df_cum_standings.csv')
+# df_matrices = pd.read_csv('https://raw.githubusercontent.com/urielfei/kinder_sal_dash/main/df_matrices.csv')
+
 app = dash.Dash(__name__)
 
 
@@ -161,7 +165,8 @@ def update_columns(data):
     [Input('week-dropdown', 'value')])
 def update_graph(selected_week):
     filtered_data = df_cum[df_cum['week'] <= selected_week]
-    fig = px.line(filtered_data, x='week', y='cum_points', color='team_name', title='Cumulative Points by Week')
+    filtered_data = filtered_data.rename({'cum_points':'Points','team_name':'Team'})
+    fig = px.line(filtered_data, x='week', y='Points', color='Team', title='Cumulative Points by Week')
     return fig
 
 

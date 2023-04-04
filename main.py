@@ -64,6 +64,12 @@ def discrete_background_color_bins(df,  columns, n_bins=7):
 rank_cols = [col for col in df.columns if '_rank' in col]
 styles, legend = discrete_background_color_bins(df, columns=rank_cols)
 
+#Set default graph
+pal_gr_color = px.colors.qualitative.Dark24
+filtered_data = df_cum[df_cum['week'] <= min(df_cum['week'].max(),19)]
+filtered_data = filtered_data.rename({'cum_points':'Points','team_name':'Team','week':'Week'},axis='columns')
+fig = px.line(filtered_data, x='Week', y='Points', color='Team', title='Cumulative Points by Week', color_discrete_sequence=pal_gr_color)
+
 
 app.layout = html.Div([
     html.H1('Kinder Sal', style={'text-align': 'center'}),
@@ -166,7 +172,7 @@ def update_columns(data):
 def update_graph(selected_week):
     filtered_data = df_cum[df_cum['week'] <= selected_week]
     filtered_data = filtered_data.rename({'cum_points':'Points','team_name':'Team'},axis='columns')
-    fig = px.line(filtered_data, x='week', y='Points', color='Team', title='Cumulative Points by Week')
+    fig = px.line(filtered_data, x='week', y='Points', color='Team', title='Cumulative Points by Week', color_discrete_sequence=pal_gr_color)
     return fig
 
 
